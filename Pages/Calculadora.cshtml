@@ -1,0 +1,118 @@
+﻿@page
+@model AcaFinal.Pages.CalculadoraModel
+@inject AcaFinal.Interfaces.Calculadora.ICalculadora CalculadoraService
+@using System.Globalization
+@{
+    ViewData["Title"] = "Calculadora de Propina";
+    var culturaCol = new CultureInfo("es-CO");
+}
+
+<style>
+    .card-custom {
+        border-radius: 1rem;
+        box-shadow: 0 2px 8px rgba(60,72,100,0.08);
+    }
+
+    .btn-add {
+        background: #6366f1;
+        color: #fff;
+    }
+
+        .btn-add:hover {
+            background: #4f46e5;
+            color: #fff;
+        }
+</style>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card card-custom p-4">
+                <h3 class="mb-4 text-center" style="color:#3730a3;">Calculadora de Propina</h3>
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Identificación del Cliente</label>
+                        <input type="text" class="form-control" asp-for="Cuenta.Identificacion" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nombre del Cliente</label>
+                        <input type="text" class="form-control" asp-for="Cuenta.Nombre" required />
+                    </div>
+                    <hr />
+                    <h5>Productos</h5>
+                    <div class="row g-2 align-items-end mb-3">
+                        <div class="col-4">
+                            <label class="form-label">Código</label>
+                            <input type="text" class="form-control" asp-for="NuevoProducto.Codigo" />
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" asp-for="NuevoProducto.Nombre" />
+                        </div>
+                        <div class="col-2">
+                            <label class="form-label">Precio</label>
+                            <input type="number" class="form-control" asp-for="NuevoProducto.Precio" />
+                        </div>
+                        <div class="col-2">
+                            <label class="form-label">Cantidad</label>
+                            <input type="number" class="form-control" asp-for="NuevoProducto.Cantidad" />
+                        </div>
+                        <div class="col-12 mt-2">
+                            <button type="submit" class="btn btn-add w-100" asp-page-handler="AgregarProducto">
+                                <i class="bi bi-plus-circle"></i> Agregar Producto
+                            </button>
+                        </div>
+                    </div>
+
+                    <table class="table table-sm table-bordered align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var prod in Model.Cuenta.Detalles)
+                            {
+                                <tr>
+                                    <td>@prod.Codigo</td>
+                                    <td>@prod.Nombre</td>
+                                    <td>@prod.Precio.ToString("C", culturaCol)</td>
+                                    <td>@prod.Cantidad</td>
+                                    <td>@prod.Subtotal.ToString("C", culturaCol)</td>
+                                    <td>
+                                        <button type="submit" class="btn btn-sm btn-danger" asp-page-handler="EliminarProducto" asp-route-id="@prod.Codigo">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="mb-3">
+                        <label class="form-label">Porcentaje de Propina (%)</label>
+                        <input type="number" class="form-control" asp-for="PorcentajePropina" min="0" max="100" />
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg" asp-page-handler="Calcular">Calcular</button>
+                    </div>
+                </form>
+                @if (Model.LiquidacionGenerada)
+                {
+                    <hr />
+                    <div class="alert alert-success mt-3">
+                        <h5>Resumen de la Cuenta</h5>
+                        <p><strong>Cliente:</strong> @Model.Cuenta.Nombre (@Model.Cuenta.Identificacion)</p>
+                        <p><strong>Subtotal:</strong> @Model.Cuenta.SubTotal.ToString("C", culturaCol)</p>
+                        <p><strong>Propina:</strong> @Model.Cuenta.Propina.ToString("C", culturaCol)</p>
+                        <p><strong>Total:</strong> @Model.Cuenta.Total.ToString("C", culturaCol)</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

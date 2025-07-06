@@ -1,0 +1,96 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Aca final";
+}
+
+
+<style>
+    .option-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        background: linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%);
+        text-decoration: none;
+        color: inherit;
+    }
+
+        .option-card:hover, .option-card.active {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(60,72,100,0.18);
+            background: linear-gradient(135deg, #e0e7ff 60%, #f8fafc 100%);
+            text-decoration: none;
+            color: inherit;
+        }
+
+    .option-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        color: #4f46e5;
+        background: #e0e7ff;
+        border-radius: 50%;
+        padding: 1rem;
+        box-shadow: 0 2px 8px rgba(79,70,229,0.08);
+        transition: background 0.2s, color 0.2s;
+    }
+
+    .option-card:hover .option-icon, .option-card.active .option-icon {
+        color: #fff;
+        background: #6366f1;
+    }
+
+    .option-title {
+        font-weight: 600;
+        color: #3730a3;
+    }
+
+    .option-text {
+        color: #4b5563;
+    }
+</style>
+
+<div class="container py-5">
+    <h1 class="mb-4 text-center fw-bold" style="color:#3730a3;">Bienvenido</h1>
+    <p class="mb-5 text-center fs-5" style="color:#6366f1;">Selecciona una opción para comenzar</p>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
+        <div class="col d-flex">
+            <a class="card option-card flex-fill text-center h-100" asp-area="" asp-page="/Calculadora" >
+                <div class="card-body d-flex flex-column align-items-center">
+                    <i class="bi bi-calculator option-icon"></i>
+                    <h5 class="option-title mt-2">Calculadora de Propina</h5>
+                    <p class="option-text">Calcula fácilmente la propina de tu cuenta.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col d-flex">
+            <a class="card option-card flex-fill text-center h-100" asp-area="" asp-page="/Calificacion">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <i class="bi bi-star option-icon"></i>
+                    <h5 class="option-title mt-2">Clasificación de Calificaciones</h5>
+                    <p class="option-text">Visualiza y gestiona calificaciones.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col d-flex">
+            <a class="card option-card flex-fill text-center h-100" asp-area="" asp-page="/Login">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <i class="bi bi-shield-lock option-icon"></i>
+                    <h5 class="option-title mt-2">Control de Intentos de Inicio de Sesión</h5>
+                    <p class="option-text">Administra la seguridad de los accesos.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col d-flex">
+            <a class="card option-card flex-fill text-center h-100" asp-area="" asp-page="/PagoElectronico">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <i class="bi bi-credit-card option-icon"></i>
+                    <h5 class="option-title mt-2">Sistema de Pago Electrónico</h5>
+                    <p class="option-text">Realiza pagos de forma segura y rápida.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

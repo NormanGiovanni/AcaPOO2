@@ -1,0 +1,46 @@
+﻿@page
+@model AcaFinal.Pages.LoginModel
+@{
+    ViewData["Title"] = "Control de Intentos de Inicio de Sesión";
+}
+
+<style>
+    .card-custom {
+        border-radius: 1rem;
+        box-shadow: 0 2px 8px rgba(60,72,100,0.08);
+    }
+    .btn-login {
+        background: #6366f1;
+        color: #fff;
+    }
+    .btn-login:hover {
+        background: #4f46e5;
+        color: #fff;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card card-custom p-4">
+                <h3 class="mb-4 text-center" style="color:#3730a3;">Control de Intentos de Inicio de Sesión</h3>
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label" for="Password">Contraseña:</label>
+                        <input asp-for="Password" type="password" class="form-control" required />
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-login btn-lg">Ingresar</button>
+                    </div>
+                </form>
+                @if (Model.Mensaje != null)
+                {
+                    <hr />
+                    <div class="alert alert-info mt-3 text-center">
+                        <strong>@Model.Mensaje</strong>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
